@@ -1,0 +1,117 @@
+{
+    "types": [
+        {
+            "name": "car",
+            "probability": 0.8
+        },
+        {
+            "name": "truck",
+            "probability": 0.2
+        }
+    ],
+    "weights": [
+        {
+            "max": 10000,
+            "min": 1000,
+            "probability": 0.9
+        },
+        {
+            "max": 50000,
+            "min": 10000,
+            "probability": 0.1
+        }
+    ],
+    "colors": {
+        "allowed_colors": [
+            "red",
+            "blue",
+            "orange",
+            "black",
+            "white",
+            "green",
+            "yellow"
+        ],
+        "banned_colors": [
+            "pink",
+            "brown"
+        ],
+        "banned_probability": 0.01
+    },
+    "engines": [
+        {
+            "type": "electric",
+            "probability": 0.5
+        },
+        {
+            "type": "hybrid",
+            "probability": 0.3
+        },
+        {
+            "type": "gas",
+            "probability": 0.15
+        },
+        {
+            "type": "gasoline",
+            "probability": 0.05
+        }
+    ],
+    "cargo_permission_availability": 0.8,
+    "cargos": [
+        {
+            "name": "wood",
+            "probability": 0.05,
+            "type": "allowed"
+        },
+        {
+            "name": "clothes",
+            "probability": 0.05,
+            "type": "allowed"
+        },
+        {
+            "name": "none",
+            "probability": 0.5,
+            "type": "allowed"
+        },
+        {
+            "name": "food",
+            "probability": 0.1,
+            "type": "permission_required"
+        },
+        {
+            "name": "medications",
+            "probability": 0.1,
+            "type": "permission_required"
+        },
+        {
+            "name": "alcohol",
+            "probability": 0.1,
+            "type": "permission_required"
+        },
+        {
+            "name": "weapon",
+            "probability": 0.05,
+            "type": "banned"
+        },
+        {
+            "name": "drugs",
+            "probability": 0.05,
+            "type": "banned"
+        }
+    ],
+    "speeds": [
+        {
+            "max": 100,
+            "min": 30,
+            "probability": 0.7
+        },
+        {
+            "max": 400,
+            "min": 100,
+            "probability": 0.3
+        }
+    ],
+    "directions": {
+        "right": 0.95,
+        "wrong": 0.05
+    }
+}
