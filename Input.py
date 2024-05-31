@@ -5,14 +5,17 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
+
 class CargoType(Enum):
     allowed = 'allowed'
     permission_required = 'permission_required'
     banned = 'banned'
 
+
 class TransportType(Enum):
     car = 'car'
     truck = 'truck'
+
 
 class Cargo:
     def __init__(self, probability: float, type: CargoType, name: str):
@@ -29,6 +32,7 @@ class Cargo:
                 f"probability: {self.probability} "
                 f"type: {self.type} "
                 f"name: {self.name}")
+
 
 class Colors:
     def __init__(self, allowed, banned, banned_probability: float):
@@ -52,6 +56,7 @@ class Colors:
         else:
             return None
 
+
 class Direction:
     def __init__(self, right, wrong):
         self.right = right
@@ -66,11 +71,13 @@ class Direction:
     def from_json(json_data):
         return Direction(float(json_data['right']), float(json_data['wrong']))
 
+
 class EngineType(Enum):
     hybrid = 'hybrid'
     gas = 'gas'
     electric = 'electric'
     gasoline = 'gasoline'
+
 
 class Engine:
     def __init__(self, type: EngineType, probability: float):
@@ -85,6 +92,7 @@ class Engine:
     @staticmethod
     def from_json(json_data):
         return Engine(EngineType(json_data['type']), float(json_data['probability']))
+
 
 class Speed:
     def __init__(self, max, min, probability: float):
@@ -101,6 +109,7 @@ class Speed:
     @staticmethod
     def from_json(json_data):
         return Speed(int(json_data['max']), int(json_data['min']), float(json_data['probability']))
+
 
 class Transport:
     def __init__(self, type: TransportType, weight: int, color: str, engine: str, cargo_permission: bool, cargo: str,
@@ -127,6 +136,7 @@ class Transport:
                 f"\n-------------------"
                 )
 
+
 class TransportDescriptionProbabilities:
     def __init__(self, type_desc, weight, colors, engine, cargo_permission_availability, cargo, speed, direction):
         self.type = type_desc
@@ -151,6 +161,7 @@ class TransportDescriptionProbabilities:
 
     @staticmethod
     def from_json(json_data):
+        # create list data from json
         type_desc = [TransportTypeDescription.from_json(t) for t in json_data["types"]]
         weight = [Weight.from_json(w) for w in json_data["weights"]]
         colors = Colors.from_json(json_data["colors"])
@@ -163,6 +174,7 @@ class TransportDescriptionProbabilities:
         return TransportDescriptionProbabilities(type_desc, weight, colors, engine,
                                                  cargo_permission_availability,
                                                  cargo, speed, direction)
+
 
 class TransportTypeDescription:
     def __init__(self, type: TransportType, probability: float):
@@ -177,6 +189,7 @@ class TransportTypeDescription:
     @staticmethod
     def from_json(json_data):
         return TransportTypeDescription(TransportType(json_data["name"]), float(json_data["probability"]))
+
 
 class Weight:
     def __init__(self, max, min, probability: float):
@@ -194,11 +207,13 @@ class Weight:
     def from_json(json_data):
         return Weight(int(json_data['max']), int(json_data['min']), float(json_data['probability']))
 
+
 class TransportGenerator:
     @staticmethod
     def generate_from(probabilities: TransportDescriptionProbabilities):
         if probabilities is None:
             logging.error("Probabilities cannot be None")
+        # generate random values
         transport_type = TransportGenerator.randomize_for_types(probabilities.type)
         weight = TransportGenerator.randomize_for_weight(probabilities.weight)
         color = TransportGenerator.randomize_for_colors(probabilities.colors)
@@ -289,6 +304,7 @@ class TransportGenerator:
                 return engine.type.value
         return None
 
+
 def main():
     data_json = load_json("probability_table.json")
     probabilities = TransportDescriptionProbabilities.from_json(data_json)
@@ -296,11 +312,13 @@ def main():
         transport = TransportGenerator.generate_from(probabilities)
         print(transport)
 
+
 def load_json(file_name):
     with open(file_name, 'r') as f:
         data = json.load(f)
         logging.debug(f"Loaded JSON data: {data}")
         return data
+
 
 if __name__ == "__main__":
     main()
