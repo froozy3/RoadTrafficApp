@@ -318,7 +318,7 @@ def load_json(file_name):
         data = json.load(f)
         logging.debug(f"Loaded JSON data: {data}")
         return data
-##
+
 
 if __name__ == "__main__":
     main()
